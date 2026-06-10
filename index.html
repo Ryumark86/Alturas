@@ -1,482 +1,551 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FR-SST-027 - Permiso para Trabajo en Alturas</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f7f6;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            background: #fff;
-            padding: 20px;
-            margin: 0 auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            color: #0b57d0;
-        }
-        h3 {
-            border-bottom: 2px solid #0b57d0;
-            padding-bottom: 5px;
-            margin-top: 20px;
-            color: #333;
-        }
-        h4 {
-            margin: 10px 0;
-            color: #1e293b;
-        }
-        label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-        }
-        input[type="text"], input[type="date"], input[type="time"], textarea {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .checkbox-group, .radio-group {
-            margin-top: 10px;
-        }
-        .checkbox-group label, .radio-group label {
-            font-weight: normal;
-            display: inline-block;
-            margin-right: 15px;
-        }
-        .cierre-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            font-size: 13px;
-        }
-        .cierre-table th, .cierre-table td {
-            border: 1px solid #cbd5e1;
-            padding: 8px;
-            text-align: center;
-        }
-        .cierre-table td:first-child {
-            text-align: left;
-            font-weight: bold;
-        }
-        .tech-card {
-            background: #f9fbfb;
-            border: 1px solid #e2e8f0;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 15px;
-            position: relative;
-        }
-        .btn-remove {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: #ff4d4d;
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            font-weight: bold;
-            text-align: center;
-            line-height: 22px;
-            padding: 0;
-        }
-        canvas {
-            border: 1px solid #cbd5e1;
-            background-color: #fff;
-            width: 100%;
-            height: 100px;
-            touch-action: none;
-            margin-top: 5px;
-        }
-        .btn-secondary {
-            background-color: #475569;
-            color: white;
-            padding: 8px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            margin-top: 5px;
-        }
-        .btn-secondary:hover {
-            background-color: #334155;
-        }
-        button {
-            width: 100%;
-            background-color: #0b57d0;
-            color: white;
-            padding: 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #0540a0;
-        }
-        #bloqueAlturaBaja {
-            display: none;
-            background-color: #f8fafc;
-            padding: 15px;
-            border-radius: 6px;
-            margin-top: 15px;
-            border: 1px solid #cbd5e1;
-        }
-        .esquema-container {
-            text-align: center;
-            margin: 15px 0;
-            padding: 10px;
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-        }
-        .esquema-container img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-        }
-        /* Estilo del pie de página */
-        .footer {
-            text-align: center;
-            font-size: 12px;
-            color: #64748b;
-            margin-top: 30px;
-            border-top: 1px solid #e2e8f0;
-            padding-top: 15px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0d2b4e">
+<title>FR-SST-027 - Permiso para Trabajo en Alturas</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+:root{
+  --navy:#0d2b4e;--navy2:#1a3f6f;--cyan:#29b6d8;--cyan2:#1a9dbf;
+  --white:#fff;--gray:#f4f6f9;--gray2:#e8ecf1;--gray3:#c8d0dc;
+  --text:#1a2535;--text2:#4a5568;--danger:#e53e3e;--success:#38a169;--warn:#d97706;
+  --radius:12px;--shadow:0 2px 12px rgba(13,43,78,.13);
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--gray);color:var(--text);min-height:100vh;padding-bottom:90px}
+.header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:14px 16px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.header-info{flex:1}
+.header h1{color:var(--white);font-size:13px;font-weight:700;line-height:1.2;text-transform:uppercase}
+.header p{color:rgba(255,255,255,.7);font-size:10px;margin-top:2px}
+.screen{display:none;padding:14px;max-width:600px;margin:0 auto}
+.screen.active{display:block}
+.card{background:var(--white);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin-bottom:12px}
+.card-title{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.04em}
+.card-title .icon{width:26px;height:26px;background:var(--navy);border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--white);font-size:13px;flex-shrink:0}
+.field-label{display:block;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;margin-top:10px}
+input[type=text],input[type=date],input[type=time],select,textarea{width:100%;padding:10px 12px;border:1.5px solid var(--gray3);border-radius:8px;font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border .2s;-webkit-appearance:none;appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--cyan)}
+textarea{resize:vertical;min-height:80px}
+.radio-group, .checkbox-group {margin-top: 8px; font-size: 13px;}
+.radio-group label, .checkbox-group label {display: inline-block; margin-right: 15px; margin-bottom: 6px;}
+.tech-card {background: #f9fbfb; border: 1px solid var(--gray2); padding: 15px; border-radius: 8px; margin-bottom: 12px; position: relative;}
+.btn-remove {position: absolute; top: 10px; right: 10px; background: var(--danger); color: white; border: none; border-radius: 50%; width: 24px; height: 24px; cursor: pointer; font-weight: bold; text-align: center; line-height: 22px; padding: 0;}
+canvas {border: 1px solid var(--gray3); background-color: var(--white); width: 100%; height: 100px; touch-action: none; margin-top: 5px; border-radius: 6px;}
+.cierre-table {width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px;}
+.cierre-table th, .cierre-table td{border: 1px solid #cbd5e1;padding: 8px;text-align: center;}
+.cierre-table td:first-child {text-align: left; font-weight: 600;}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray2);display:flex;z-index:200;box-shadow:0 -2px 12px rgba(0,0,0,.08)}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px 10px;border:none;background:none;cursor:pointer;color:var(--text2);font-size:10px;font-weight:600;gap:3px;transition:color .15s;position:relative}
+.nav-icon{font-size:22px;line-height:1}
+.nav-btn.active{color:var(--cyan)}
+.nav-bar{position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:28px;height:3px;background:var(--cyan);border-radius:2px;display:none}
+.nav-btn.active .nav-bar {display: block;}
+.btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;text-align:center;transition:all .15s;margin-top:10px}
+.btn-primary{background:linear-gradient(135deg,var(--cyan) 0%,var(--cyan2) 100%);color:var(--white);box-shadow:0 3px 10px rgba(41,182,216,.3)}
+.btn-primary:active{transform:scale(.98)}
+.btn-danger{background:var(--danger);color:var(--white)}
+.btn-outline{background:transparent;border:1.5px solid var(--navy);color:var(--navy);font-weight:700}
+.record-item{background:var(--white);border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;cursor:pointer;-webkit-user-select:none;user-select:none}
+.record-item:active{opacity:.8}
+.record-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0;background:var(--success)}
+.record-info{flex:1}
+.record-name{font-size:13px;font-weight:700;color:var(--text)}
+.record-date{font-size:11px;color:var(--text2);margin-top:2px}
+.empty-state{text-align:center;padding:48px 20px;color:var(--text2)}
+.empty-icon{font-size:52px;margin-bottom:12px}
+.toast{position:fixed;bottom:92px;left:50%;transform:translateX(-50%) translateY(16px);background:rgba(26,37,53,.95);color:var(--white);padding:11px 22px;border-radius:30px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;pointer-events:none;white-space:nowrap;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+#bloqueAlturaBaja {display: none; background: var(--gray2); padding: 12px; border-radius: 8px; margin-top: 10px;}
+.esquema-container {text-align: center; margin: 15px 0; padding: 10px; background: var(--white); border: 1.5px solid var(--gray3); border-radius: 8px;}
+.esquema-container img {max-width: 100%; height: auto; border-radius: 4px;}
+.footer {text-align: center; font-size: 12px; color: var(--text2); margin-top: 30px; border-top: 1px solid var(--gray2); padding-top: 15px;}
+.detail-hdr{background:linear-gradient(135deg,var(--navy),var(--navy2));color:var(--white);border-radius:var(--radius);padding:16px;margin-bottom:12px}
+.detail-hdr h2{font-size:14px;font-weight:700}
+.detail-hdr p{font-size:11px;opacity:.75;margin-top:4px}
+.info-row{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid var(--gray2);font-size:13px}
+.info-row span{font-size:11px;color:var(--text2);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.btn-secondary {background-color: var(--gray2); color: var(--navy2); padding: 8px 12px; border: 1.5px solid var(--gray3); border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 700; margin-top: 5px; width: 100%;}
+.btn-secondary:hover {background-color: var(--gray3);}
+
+/* ─── ESTILOS DE IMPRESIÓN PARA PDF ─── */
+@media print {
+  body {background: white !important; color: #000; padding-bottom: 0;}
+  .header, .bottom-nav, .btn, .btn-outline, .btn-secondary, .nav-btn, .footer {display: none !important;}
+  .screen {display: none !important;}
+  #screen-detalle {display: block !important; padding: 0; max-width: 100%; margin: 0;}
+  .card {box-shadow: none !important; border: 1px solid var(--gray3) !important; page-break-inside: avoid; margin-bottom: 15px;}
+  canvas {border: 1px solid #000 !important;}
+}
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h2>SITOC</h2>
-    <h3>PERMISO PARA TRABAJO EN ALTURAS</h3>
-    <p style="text-align:right; font-size:12px;">FR-SST-027 | Versión: 03</p>
-
-    <form id="formAlturas">
-        <label>Fecha:</label>
-        <input type="date" id="fecha" required>
-
-        <label>Sitio de Trabajo:</label>
-        <input type="text" id="sitio" placeholder="Ubicación o dirección de la obra" required>
-
-        <label>Descripción de la Tarea:</label>
-        <textarea id="descripcion" rows="3" placeholder="Detalle breve de la labor a realizar" required></textarea>
-
-        <label>Hora de Inicio (Real):</label>
-        <input type="time" id="horaInicio" required>
-
-        <label>Hora de Finalización (Programada):</label>
-        <input type="time" id="horaFin" required>
-
-        <label>Altura Máxima de Trabajo (MTS):</label>
-        <input type="text" id="alturaMax" placeholder="Ej. 4.5" required>
-
-        <label>¿Se diligenció el ATS?:</label>
-        <div class="radio-group">
-            <label><input type="radio" name="ats" value="SI" required> SI</label>
-            <label><input type="radio" name="ats" value="NO"> NO</label>
-        </div>
-
-        <h3>EPP (Elementos de Protección Personal)</h3>
-        <div class="checkbox-group">
-            <label><input type="checkbox" value="Casco"> Casco</label>
-            <label><input type="checkbox" value="Arnes"> Arnés</label>
-            <label><input type="checkbox" value="Barbuquejo"> Barbuquejo</label>
-            <label><input type="checkbox" value="Eslinga Posicionamiento"> Eslinga de posicionamiento</label>
-            <label><input type="checkbox" value="Eslinga Absorbedor"> Eslinga con absorbedor</label>
-            <label><input type="checkbox" value="Gafas"> Gafas de seguridad</label>
-            <label><input type="checkbox" value="Guantes Antideslizantes"> Guantes antideslizantes</label>
-            <label><input type="checkbox" value="Botas Puntera"> Botas con puntera</label>
-            <label><input type="checkbox" value="Proteccion Respiratoria"> Protección respiratoria</label>
-        </div>
-
-        <h3>Personal Autorizado (Técnicos)</h3>
-        <div id="techContainer"></div>
-        
-        <button type="button" class="btn-secondary" onclick="agregarTecnico()">+ Añadir Técnico / Ayudante</button>
-
-        <h3>Coordinador de Trabajo en Alturas (Emisor)</h3>
-        <div class="tech-card">
-            <label>Nombres y Apellidos del Coordinador:</label>
-            <input type="text" id="coord-nombre" placeholder="Nombre completo" required>
-
-            <label>Cédula (C.C.):</label>
-            <input type="text" id="coord-cedula" placeholder="Número de documento" required>
-
-            <label>Número de Teléfono:</label>
-            <input type="text" id="coord-telefono" placeholder="Móvil de contacto" required>
-
-            <label>Firma del Coordinador:</label>
-            <canvas id="signatureCanvas_coord"></canvas>
-            <br>
-            <button type="button" class="btn-secondary" onclick="limpiarFirma('signatureCanvas_coord')">Limpiar Firma</button>
-        </div>
-
-        <h3>Comprobaciones de Condiciones Físicas Previas</h3>
-        <table class="cierre-table">
-            <tr>
-                <th>Verificación / Constancia</th>
-                <th>SI</th>
-                <th>NO</th>
-                <th>N/A</th>
-            </tr>
-            <tr>
-                <td>¿Algún trabajador ha sufrido traumas / golpes en cara o cráneo con pérdida de conocimiento o intenso aturdimiento en las últimas 72 horas?</td>
-                <td><input type="radio" name="u_q1" value="SI" required></td>
-                <td><input type="radio" name="u_q1" value="NO"></td>
-                <td><input type="radio" name="u_q1" value="NA"></td>
-            </tr>
-            <tr>
-                <td>¿Algún trabajador ha presentado enfermedad del oído que ameritó tratamiento médico durante las últimas 24 horas?</td>
-                <td><input type="radio" name="u_q2" value="SI" required></td>
-                <td><input type="radio" name="u_q2" value="NO"></td>
-                <td><input type="radio" name="u_q2" value="NA"></td>
-            </tr>
-            <tr>
-                <td>¿Algún trabajador ha ingerido medicamentos, bebidas alcohólicas o sustancias alucinógenas en las últimas 24 horas?</td>
-                <td><input type="radio" name="u_q3" value="SI" required></td>
-                <td><input type="radio" name="u_q3" value="NO"></td>
-                <td><input type="radio" name="u_q3" value="NA"></td>
-            </tr>
-            <tr>
-                <td>¿Se encuentran los trabajadores en condiciones físicas y anímicas aptas para realizar la labor?</td>
-                <td><input type="radio" name="u_q4" value="SI" required></td>
-                <td><input type="radio" name="u_q4" value="NO"></td>
-                <td><input type="radio" name="u_q4" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Los trabajadores cuentan con el CERTIFICADO DE CAPACITACIÓN y/o competencia laboral para el trabajo seguro en alturas.</td>
-                <td><input type="radio" name="u_q5" value="SI" required></td>
-                <td><input type="radio" name="u_q5" value="NO"></td>
-                <td><input type="radio" name="u_q5" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Los trabajadores cuentan con AFILIACIONES vigentes en seguridad social integral.</td>
-                <td><input type="radio" name="u_q6" value="SI" required></td>
-                <td><input type="radio" name="u_q6" value="NO"></td>
-                <td><input type="radio" name="u_q6" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Los trabajadores conocen los PASOS para realizar la tarea, sus riesgos y medidas preventivas.</td>
-                <td><input type="radio" name="u_q7" value="SI" required></td>
-                <td><input type="radio" name="u_q7" value="NO"></td>
-                <td><input type="radio" name="u_q7" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Existe supervisión directa para la realización de los trabajos. (COORDINADOR DE TRABAJO EN ALTURAS)</td>
-                <td><input type="radio" name="u_q8" value="SI" required></td>
-                <td><input type="radio" name="u_q8" value="NO"></td>
-                <td><input type="radio" name="u_q8" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se observa que los SISTEMAS DE ACCESO como andamios, escaleras, plataformas elevadoras, estructuras (torre), azoteas, están en buen estado.</td>
-                <td><input type="radio" name="u_q9" value="SI" required></td>
-                <td><input type="radio" name="u_q9" value="NO"></td>
-                <td><input type="radio" name="u_q9" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se cuenta con PUNTOS DE ANCLAJE (estructura, ganchos, anclajes, vigas, etc).</td>
-                <td><input type="radio" name="u_q10" value="SI" required></td>
-                <td><input type="radio" name="u_q10" value="NO"></td>
-                <td><input type="radio" name="u_q10" value="NA"></td>
-            </tr>
-            <tr>
-                <td>En la estructura donde se ejecuta la instalación se cuenta con los 3 PUNTOS DE APOYO para un posicionamiento seguro.</td>
-                <td><input type="radio" name="u_q11" value="SI" required></td>
-                <td><input type="radio" name="u_q11" value="NO"></td>
-                <td><input type="radio" name="u_q11" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se verificó que los EPCC (ELEMENTOS DE PROTECCIÓN CONTRA CAÍDAS) se encuentran libres de quemaduras, manchas de químicos, uniones rotas, desgaste abrasivo, costuras de hilo rotas, corrosión de argollas, rasgaduras, absorbedor roto, cortes, guaya deshilachada, gancho sin cierre seguro o alguna otra señal de daño importante que impida su uso de manera segura.</td>
-                <td><input type="radio" name="u_q12" value="SI" required></td>
-                <td><input type="radio" name="u_q12" value="NO"></td>
-                <td><input type="radio" name="u_q12" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se cuenta con LÍNEAS DE VIDA o guayas en buen estado y ancladas a sistemas fijos, por encima de la cabeza del trabajador.</td>
-                <td><input type="radio" name="u_q13" value="SI" required></td>
-                <td><input type="radio" name="u_q13" value="NO"></td>
-                <td><input type="radio" name="u_q13" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se DELIMITÓ Y SEÑALIZÓ la zona de trabajo para establecer un perímetro de seguridad teniendo en cuenta el espacio de posible caída de objetos (línea de fuego).</td>
-                <td><input type="radio" name="u_q14" value="SI" required></td>
-                <td><input type="radio" name="u_q14" value="NO"></td>
-                <td><input type="radio" name="u_q14" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Existen BARANDAS DE PROTECCIÓN en zonas donde hay exposición al vacío y están en buen estado.</td>
-                <td><input type="radio" name="u_q15" value="SI" required></td>
-                <td><input type="radio" name="u_q15" value="NO"></td>
-                <td><input type="radio" name="u_q15" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Los EQUIPOS Y HERRAMIETAS fueron revisados y se encuentran en buen estado.</td>
-                <td><input type="radio" name="u_q16" value="SI" required></td>
-                <td><input type="radio" name="u_q16" value="NO"></td>
-                <td><input type="radio" name="u_q16" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se mantiene DISTANCIA MÍNIMA de separación de 3 m a LÍNEAS ELÉCTRICAS ENERGIZADAS.</td>
-                <td><input type="radio" name="u_q17" value="SI" required></td>
-                <td><input type="radio" name="u_q17" value="NO"></td>
-                <td><input type="radio" name="u_q17" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Los trabajadores conocen el PROTOCOLO a seguir en caso de accidentes o EMERGENCIAS.</td>
-                <td><input type="radio" name="u_q18" value="SI" required></td>
-                <td><input type="radio" name="u_q18" value="NO"></td>
-                <td><input type="radio" name="u_q18" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se cuenta con ELEMENTOS DE PROTECCIÓN PERSONAL de acuerdo a los riesgos y están en buen estado.</td>
-                <td><input type="radio" name="u_q19" value="SI" required></td>
-                <td><input type="radio" name="u_q19" value="NO"></td>
-                <td><input type="radio" name="u_q19" value="NA"></td>
-            </tr>
-        </table>
-
-        <h3>Verificación de Altura de la Actividad</h3>
-        <label>¿La actividad a realizar es en una altura menor o igual a 6.2 metros?</label>
-        <div class="radio-group">
-            <label><input type="radio" name="criterioAltura" value="SI" id="alturaSi"> SÍ</label>
-            <label><input type="radio" name="criterioAltura" value="NO" id="alturaNo" checked> NO</label>
-        </div>
-
-        <div id="bloqueAlturaBaja">
-            <h3>ANÁLISIS DE DISTANCIA DE CAÍDA (≤ 6.2 metros)</h3>
-            <div class="esquema-container">
-                <img src="image_8db762.png" alt="Esquema de distancia de caída libre">
-            </div>
-
-            <table class="cierre-table">
-                <tr>
-                    <th>Preguntas de Verificación (Zona Baja)</th>
-                    <th>SI</th>
-                    <th>NO</th>
-                    <th>N/A</th>
-                </tr>
-                <tr>
-                    <td>¿Se verificó la distancia de desaceleración y elongación del absorbedor de choque?</td>
-                    <td><input type="radio" name="b_q1" value="SI"></td>
-                    <td><input type="radio" name="b_q1" value="NO"></td>
-                    <td><input type="radio" name="b_q1" value="NA"></td>
-                </tr>
-                <tr>
-                    <td>¿La longitud total del sistema (eslinga + absorbedor + elongación) es menor a la distancia disponible al piso/obstáculo?</td>
-                    <td><input type="radio" name="b_q2" value="SI"></td>
-                    <td><input type="radio" name="b_q2" value="NO"></td>
-                    <td><input type="radio" name="b_q2" value="NA"></td>
-                </tr>
-                <tr>
-                    <td>¿Se cuenta con el espacio libre de caída (distancia de seguridad) verificado gráficamente?</td>
-                    <td><input type="radio" name="b_q3" value="SI"></td>
-                    <td><input type="radio" name="b_q3" value="NO"></td>
-                    <td><input type="radio" name="b_q3" value="NA"></td>
-                </tr>
-            </table>
-            <br>
-            <div class="tech-card">
-                <label>Observaciones de la verificación de distancia:</label>
-                <textarea id="obs-alturabaja" rows="2" placeholder="Detalles adicionales..."></textarea>
-            </div>
-        </div>
-
-        <h3>9. CIERRE DEL PERMISO</h3>
-        <p style="font-size: 13px; color: #444;">Para la terminación de la tarea damos constancia de lo siguiente:</p>
-        <table class="cierre-table">
-            <tr>
-                <th>Constancia de Cierre</th>
-                <th>SI</th>
-                <th>NO</th>
-                <th>N/A</th>
-            </tr>
-            <tr>
-                <td>La tarea se ejecutó conforme a las especificaciones del cliente.</td>
-                <td><input type="radio" name="c_q1" value="SI"></td>
-                <td><input type="radio" name="c_q1" value="NO"></td>
-                <td><input type="radio" name="c_q1" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se aplicaron las medidas de control para los riesgos a los cuales estuvo expuesto el equipo de trabajo.</td>
-                <td><input type="radio" name="c_q2" value="SI"></td>
-                <td><input type="radio" name="c_q2" value="NO"></td>
-                <td><input type="radio" name="c_q2" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Se evitan impactos ambientales entregando el sitio de trabajo en buen estado de orden y aseo.</td>
-                <td><input type="radio" name="c_q3" value="SI"></td>
-                <td><input type="radio" name="c_q3" value="NO"></td>
-                <td><input type="radio" name="c_q3" value="NA"></td>
-            </tr>
-            <tr>
-                <td>Hubo ausencia de accidentes y otras eventualidades o emergencias que hayan podido afectar negativamente la terminación de la tarea.</td>
-                <td><input type="radio" name="c_q4" value="SI"></td>
-                <td><input type="radio" name="c_q4" value="NO"></td>
-                <td><input type="radio" name="c_q4" value="NA"></td>
-            </tr>
-        </table>
-        <br>
-        
-        <div class="tech-card">
-            <h4>Responsables de Cierre</h4>
-            <label>Coordinador de Trabajo en Altura (Emisor):</label>
-            <input type="text" id="cierre-coord-nombre" placeholder="Nombre completo">
-            <label>Firma del Coordinador:</label>
-            <canvas id="signatureCanvas_cierre_coord"></canvas>
-            <button type="button" class="btn-secondary" onclick="limpiarFirma('signatureCanvas_cierre_coord')" style="margin-top:5px;">Limpiar</button>
-            
-            <br><br>
-            
-            <label>Jefe de la Cuadrilla:</label>
-            <input type="text" id="cierre-jefe-nombre" placeholder="Nombre completo">
-            <label>Firma del Jefe de Cuadrilla:</label>
-            <canvas id="signatureCanvas_cierre_jefe"></canvas>
-            <button type="button" class="btn-secondary" onclick="limpiarFirma('signatureCanvas_cierre_jefe')" style="margin-top:5px;">Limpiar</button>
-        </div>
-
-        <button type="submit">Enviar Permiso de Alturas</button>
-
-        <div class="footer">
-            Revisado por: RH Gestion Empresarial | Aprobado por: Neyder Segrera | Fecha de Creacion: 20/07/2022 | Fecha de ultima creacion: 26/07/2022
-        </div>
-    </form>
+<div class="header">
+  <div class="header-info">
+    <h1>SITOC - PERMISO PARA TRABAJO EN ALTURAS</h1>
+    <p>FR-SST-027 | Versión: 03</p>
+  </div>
 </div>
+
+<div id="screen-form" class="screen active">
+  <form id="formAlturas">
+    <div class="card">
+      <div class="card-title"><div class="icon">📝</div>Datos Generales</div>
+      <label class="field-label">Fecha:</label>
+      <input type="date" id="fecha" required>
+
+      <label class="field-label">Sitio de Trabajo:</label>
+      <input type="text" id="sitio" placeholder="Ubicación o dirección de la obra" required>
+
+      <label class="field-label">Descripción de la Tarea:</label>
+      <textarea id="descripcion" rows="3" placeholder="Detalle breve de la labor a realizar" required></textarea>
+
+      <label class="field-label">Hora de Inicio (Real):</label>
+      <input type="time" id="horaInicio" required>
+
+      <label class="field-label">Hora de Finalización (Programada):</label>
+      <input type="time" id="horaFin" required>
+
+      <label class="field-label">Altura Máxima de Trabajo (MTS):</label>
+      <input type="text" id="alturaMax" placeholder="Ej. 4.5" required>
+
+      <label class="field-label">¿Se diligenció el ATS?:</label>
+      <div class="radio-group">
+        <label><input type="radio" name="ats" value="SI" required> SI</label>
+        <label><input type="radio" name="ats" value="NO"> NO</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🦺</div>EPP (Elementos de Protección Personal)</div>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="Casco"> Casco</label>
+        <label><input type="checkbox" value="Arnes"> Arnés</label>
+        <label><input type="checkbox" value="Barbuquejo"> Barbuquejo</label>
+        <label><input type="checkbox" value="Eslinga Posicionamiento"> Eslinga de posicionamiento</label>
+        <label><input type="checkbox" value="Eslinga Absorbedor"> Eslinga con absorbedor</label>
+        <label><input type="checkbox" value="Gafas"> Gafas de seguridad</label>
+        <label><input type="checkbox" value="Guantes Antideslizantes"> Guantes antideslizantes</label>
+        <label><input type="checkbox" value="Botas Puntera"> Botas con puntera</label>
+        <label><input type="checkbox" value="Proteccion Respiratoria"> Protección respiratoria</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">👷</div>Personal Autorizado (Técnicos)</div>
+      <div id="techContainer"></div>
+      <button type="button" class="btn-secondary" onclick="agregarTecnico()">+ Añadir Técnico / Ayudante</button>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">💂</div>Coordinador de Trabajo en Alturas (Emisor)</div>
+      <div class="tech-card">
+        <label class="field-label">Nombres y Apellidos del Coordinador:</label>
+        <input type="text" id="coord-nombre" placeholder="Nombre completo" required>
+
+        <label class="field-label">Cédula (C.C.):</label>
+        <input type="text" id="coord-cedula" placeholder="Número de documento" required>
+
+        <label class="field-label">Número de Teléfono:</label>
+        <input type="text" id="coord-telefono" placeholder="Móvil de contacto" required>
+
+        <label class="field-label">Firma del Coordinador:</label>
+        <canvas id="signatureCanvas_coord"></canvas>
+        <button type="button" class="btn btn-outline" style="padding:6px; font-size:12px; margin-top:6px;" onclick="limpiarFirma('signatureCanvas_coord')">Limpiar Firma</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">📋</div>Comprobaciones de Condiciones Físicas Previas</div>
+      <table class="cierre-table" id="tablaComprobaciones">
+        <tr>
+          <th>Verificación / Constancia</th>
+          <th>SI</th>
+          <th>NO</th>
+          <th>N/A</th>
+        </tr>
+        <tr>
+          <td>1. ¿Algún trabajador ha sufrido traumas / golpes en cara o cráneo con pérdida de conocimiento o intenso aturdimiento en las últimas 72 horas?</td>
+          <td><input type="radio" name="u_q1" value="SI" required></td><td><input type="radio" name="u_q1" value="NO"></td><td><input type="radio" name="u_q1" value="NA"></td>
+        </tr>
+        <tr>
+          <td>2. ¿Algún trabajador ha presentado enfermedad del oído que ameritó tratamiento médico durante las últimas 24 horas?</td>
+          <td><input type="radio" name="u_q2" value="SI" required></td><td><input type="radio" name="u_q2" value="NO"></td><td><input type="radio" name="u_q2" value="NA"></td>
+        </tr>
+        <tr>
+          <td>3. ¿Algún trabajador ha ingerido medicamentos, bebidas alcohólicas o sustancias alucinógenas en las últimas 24 horas?</td>
+          <td><input type="radio" name="u_q3" value="SI" required></td><td><input type="radio" name="u_q3" value="NO"></td><td><input type="radio" name="u_q3" value="NA"></td>
+        </tr>
+        <tr>
+          <td>4. ¿Se encuentran los trabajadores en condiciones físicas y anímicas aptas para realizar la labor?</td>
+          <td><input type="radio" name="u_q4" value="SI" required></td><td><input type="radio" name="u_q4" value="NO"></td><td><input type="radio" name="u_q4" value="NA"></td>
+        </tr>
+        <tr>
+          <td>5. Los trabajadores cuentan con el CERTIFICADO DE CAPACITACIÓN y/o competencia laboral para el trabajo seguro en alturas.</td>
+          <td><input type="radio" name="u_q5" value="SI" required></td><td><input type="radio" name="u_q5" value="NO"></td><td><input type="radio" name="u_q5" value="NA"></td>
+        </tr>
+        <tr>
+          <td>6. Los trabajadores cuentan con AFILIACIONES vigentes en seguridad social integral.</td>
+          <td><input type="radio" name="u_q6" value="SI" required></td><td><input type="radio" name="u_q6" value="NO"></td><td><input type="radio" name="u_q6" value="NA"></td>
+        </tr>
+        <tr>
+          <td>7. Los trabajadores conocen los PASOS para realizar la tarea, sus riesgos y medidas preventivas.</td>
+          <td><input type="radio" name="u_q7" value="SI" required></td><td><input type="radio" name="u_q7" value="NO"></td><td><input type="radio" name="u_q7" value="NA"></td>
+        </tr>
+        <tr>
+          <td>8. Existe supervisión directa para la realización de los trabajos. (COORDINADOR DE TRABAJO EN ALTURAS)</td>
+          <td><input type="radio" name="u_q8" value="SI" required></td><td><input type="radio" name="u_q8" value="NO"></td><td><input type="radio" name="u_q8" value="NA"></td>
+        </tr>
+        <tr>
+          <td>9. Se observa que los SISTEMAS DE ACCESO como andamios, escaleras, plataformas elevadoras, estructuras (torre), azoteas, están en buen estado.</td>
+          <td><input type="radio" name="u_q9" value="SI" required></td><td><input type="radio" name="u_q9" value="NO"></td><td><input type="radio" name="u_q9" value="NA"></td>
+        </tr>
+        <tr>
+          <td>10. Se cuenta con PUNTOS DE ANCLAJE (estructura, ganchos, anclajes, vigas, etc).</td>
+          <td><input type="radio" name="u_q10" value="SI" required></td><td><input type="radio" name="u_q10" value="NO"></td><td><input type="radio" name="u_q10" value="NA"></td>
+        </tr>
+        <tr>
+          <td>11. En la estructura donde se ejecuta la instalación se cuenta con los 3 PUNTOS DE APOYO para un posicionamiento seguro.</td>
+          <td><input type="radio" name="u_q11" value="SI" required></td><td><input type="radio" name="u_q11" value="NO"></td><td><input type="radio" name="u_q11" value="NA"></td>
+        </tr>
+        <tr>
+          <td>12. Se verificó que los EPCC se encuentran libres de quemaduras, manchas de químicos, uniones rotas, desgaste abrasivo, costuras de hilo rotas, corrosión de argollas, rasgaduras, absorbedor roto, cortes, guaya deshilachada, gancho sin cierre seguro o alguna otra señal de daño importante que impida su uso.</td>
+          <td><input type="radio" name="u_q12" value="SI" required></td><td><input type="radio" name="u_q12" value="NO"></td><td><input type="radio" name="u_q12" value="NA"></td>
+        </tr>
+        <tr>
+          <td>13. Se cuenta con LÍNEAS DE VIDA o guayas en buen estado y ancladas a sistemas fijos, por encima de la cabeza del trabajador.</td>
+          <td><input type="radio" name="u_q13" value="SI" required></td><td><input type="radio" name="u_q13" value="NO"></td><td><input type="radio" name="u_q13" value="NA"></td>
+        </tr>
+        <tr>
+          <td>14. Se DELIMITÓ Y SEÑALIZÓ la zona de trabajo para establecer un perímetro de seguridad teniendo en cuenta el espacio de posible caída de objetos.</td>
+          <td><input type="radio" name="u_q14" value="SI" required></td><td><input type="radio" name="u_q14" value="NO"></td><td><input type="radio" name="u_q14" value="NA"></td>
+        </tr>
+        <tr>
+          <td>15. Existen BARANDAS DE PROTECCIÓN en zonas donde hay exposición al vacío y están en buen estado.</td>
+          <td><input type="radio" name="u_q15" value="SI" required></td><td><input type="radio" name="u_q15" value="NO"></td><td><input type="radio" name="u_q15" value="NA"></td>
+        </tr>
+        <tr>
+          <td>16. Los EQUIPOS Y HERRAMIETAS fueron revisados y se encuentran en buen estado.</td>
+          <td><input type="radio" name="u_q16" value="SI" required></td><td><input type="radio" name="u_q16" value="NO"></td><td><input type="radio" name="u_q16" value="NA"></td>
+        </tr>
+        <tr>
+          <td>17. Se mantiene DISTANCIA MÍNIMA de separación de 3 m a LÍNEAS ELÉCTRICAS ENERGIZADAS.</td>
+          <td><input type="radio" name="u_q17" value="SI" required></td><td><input type="radio" name="u_q17" value="NO"></td><td><input type="radio" name="u_q17" value="NA"></td>
+        </tr>
+        <tr>
+          <td>18. Los trabajadores conocen el PROTOCOLO a seguir en caso de accidentes o EMERGENCIAS.</td>
+          <td><input type="radio" name="u_q18" value="SI" required></td><td><input type="radio" name="u_q18" value="NO"></td><td><input type="radio" name="u_q18" value="NA"></td>
+        </tr>
+        <tr>
+          <td>19. Se cuenta con ELEMENTOS DE PROTECCIÓN PERSONAL de acuerdo a los riesgos y están en buen estado.</td>
+          <td><input type="radio" name="u_q19" value="SI" required></td><td><input type="radio" name="u_q19" value="NO"></td><td><input type="radio" name="u_q19" value="NA"></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🧗‍♀️</div>Verificación de Altura de la Actividad</div>
+      <label class="field-label">¿La actividad a realizar es en una altura menor o igual a 6.2 metros?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="criterioAltura" value="SI" id="alturaSi"> SÍ</label>
+        <label><input type="radio" name="criterioAltura" value="NO" id="alturaNo" checked> NO</label>
+      </div>
+
+      <div id="bloqueAlturaBaja">
+        <h3>ANÁLISIS DE DISTANCIA DE CAÍDA (≤ 6.2 metros)</h3>
+        <div class="esquema-container">
+          <img src="image_8db762.png" alt="Esquema de distancia de caída libre">
+        </div>
+        <table class="cierre-table">
+          <tr>
+            <th>Preguntas de Verificación (Zona Baja)</th>
+            <th>SI</th>
+            <th>NO</th>
+            <th>N/A</th>
+          </tr>
+          <tr><td>¿Se verificó la distancia de desaceleración y elongación del absorbedor de choque?</td><td><input type="radio" name="b_q1" value="SI"></td><td><input type="radio" name="b_q1" value="NO"></td><td><input type="radio" name="b_q1" value="NA"></td></tr>
+          <tr><td>¿La longitud total del sistema (eslinga + absorbedor + elongación) es menor a la distancia disponible al piso/obstáculo?</td><td><input type="radio" name="b_q2" value="SI"></td><td><input type="radio" name="b_q2" value="NO"></td><td><input type="radio" name="b_q2" value="NA"></td></tr>
+          <tr><td>¿Se cuenta con el espacio libre de caída (distancia de seguridad) verificado gráficamente?</td><td><input type="radio" name="b_q3" value="SI"></td><td><input type="radio" name="b_q3" value="NO"></td><td><input type="radio" name="b_q3" value="NA"></td></tr>
+        </table>
+        <label class="field-label">Observaciones de la verificación de distancia:</label>
+        <textarea id="obs-alturabaja" rows="2" placeholder="Detalles adicionales..."></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><div class="icon">🔒</div>9. CIERRE DEL PERMISO</div>
+      <p style="font-size: 13px; color: var(--text2); margin-bottom: 8px;">Para la terminación de la tarea damos constancia de lo siguiente:</p>
+      <table class="cierre-table" id="tablaCierre">
+        <tr>
+            <th>Constancia de Cierre</th>
+            <th>SI</th>
+            <th>NO</th>
+            <th>N/A</th>
+        </tr>
+        <tr>
+            <td>La tarea se ejecutó conforme a las especificaciones del cliente.</td>
+            <td><input type="radio" name="c_q1" value="SI"></td><td><input type="radio" name="c_q1" value="NO"></td><td><input type="radio" name="c_q1" value="NA"></td>
+        </tr>
+        <tr>
+            <td>Se aplicaron las medidas de control para los riesgos a los cuales estuvo expuesto el equipo de trabajo.</td>
+            <td><input type="radio" name="c_q2" value="SI"></td><td><input type="radio" name="c_q2" value="NO"></td><td><input type="radio" name="c_q2" value="NA"></td>
+        </tr>
+        <tr>
+            <td>Se evitan impactos ambientales entregando el sitio de trabajo en buen estado de orden y aseo.</td>
+            <td><input type="radio" name="c_q3" value="SI"></td><td><input type="radio" name="c_q3" value="NO"></td><td><input type="radio" name="c_q3" value="NA"></td>
+        </tr>
+        <tr>
+            <td>Hubo ausencia de accidentes y otras eventualidades o emergencias que hayan podido afectar negativamente la terminación de la tarea.</td>
+            <td><input type="radio" name="c_q4" value="SI"></td><td><input type="radio" name="c_q4" value="NO"></td><td><input type="radio" name="c_q4" value="NA"></td>
+        </tr>
+      </table>
+      <br>
+      <div class="tech-card">
+        <h4>Responsables de Cierre</h4>
+        <label class="field-label">Coordinador de Trabajo en Altura (Emisor):</label>
+        <input type="text" id="cierre-coord-nombre" placeholder="Nombre completo">
+        <label class="field-label">Firma del Coordinador:</label>
+        <canvas id="signatureCanvas_cierre_coord"></canvas>
+        <button type="button" class="btn btn-outline" style="padding:6px; font-size:12px; margin-top:5px;" onclick="limpiarFirma('signatureCanvas_cierre_coord')">Limpiar</button>
+        
+        <br><br>
+        
+        <label class="field-label">Jefe de la Cuadrilla:</label>
+        <input type="text" id="cierre-jefe-nombre" placeholder="Nombre completo">
+        <label class="field-label">Firma del Jefe de Cuadrilla:</label>
+        <canvas id="signatureCanvas_cierre_jefe"></canvas>
+        <button type="button" class="btn btn-outline" style="padding:6px; font-size:12px; margin-top:5px;" onclick="limpiarFirma('signatureCanvas_cierre_jefe')">Limpiar</button>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Enviar Permiso de Alturas</button>
+    
+    <div class="footer">
+      SITOC | FR-SST-027 | Versión: 03
+    </div>
+  </form>
+</div>
+
+<div id="screen-historial" class="screen">
+  <div class="detail-hdr"><h2>📂 REGISTROS DE PERMISOS</h2><p>Historial de permisos guardados</p></div>
+  <div id="historial-lista" style="margin-top: 15px;">No hay permisos registrados.</div>
+  <button class="btn btn-danger" style="margin-top: 20px;" id="btn-borrar-todo" onclick="limpiarHistorial()">🗑️ Limpiar Historial</button>
+</div>
+
+<div id="screen-detalle" class="screen">
+  <button class="btn btn-outline" style="margin-bottom: 12px; padding: 8px;" onclick="showScreen('historial')">← Volver a Registros</button>
+  <div id="detalleContenido"></div>
+  <button class="btn btn-danger" id="btn-eliminar-reg" style="margin-top: 15px;">Eliminar Registro de la Memoria</button>
+</div>
+
+<div class="bottom-nav">
+  <button class="nav-btn active" id="nav-form" onclick="showScreen('form')">
+    <span class="nav-icon">📝</span>
+    <span>Formulario</span>
+    <div class="nav-bar" style="display: block;"></div>
+  </button>
+  <button class="nav-btn" id="nav-historial" onclick="showScreen('historial')">
+    <span class="nav-icon">📁</span>
+    <span>Registros</span>
+    <div class="nav-bar"></div>
+  </button>
+</div>
+
+<div id="toast" class="toast"></div>
 
 <script>
 let techCounter = 0;
 
-const alturaSi = document.getElementById('alturaSi');
-const alturaNo = document.getElementById('alturaNo');
-const bloqueAlturaBaja = document.getElementById('bloqueAlturaBaja');
+window.addEventListener('DOMContentLoaded', function() {
+  agregarTecnico();
+  iniciarCanvas('signatureCanvas_coord');
+  iniciarCanvas('signatureCanvas_cierre_coord');
+  iniciarCanvas('signatureCanvas_cierre_jefe');
+  document.getElementById('fecha').value = new Date().toISOString().split('T')[0];
 
-alturaSi.addEventListener('change', function() {
-    if (this.checked) {
-        bloqueAlturaBaja.style.display = 'block';
-    }
+  var radioSi = document.getElementById('alturaSi');
+  var radioNo = document.getElementById('alturaNo');
+  var divAlturaBaja = document.getElementById('bloqueAlturaBaja');
+
+  if(radioSi && radioNo) {
+    radioSi.addEventListener('change', function() {
+      if (this.checked) divAlturaBaja.style.display = 'block';
+    });
+    radioNo.addEventListener('change', function() {
+      if (this.checked) divAlturaBaja.style.display = 'none';
+    });
+  }
 });
 
-alturaNo.addEventListener('change', function() {
-    if (this.checked) {
-        bloqueAlturaBaja.style.display = 'none';
-    }
-});
+function showScreen(name) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b) {
+    b.classList.remove('active');
+    var bar = b.querySelector('.nav-bar');
+    if (bar) bar.style.display = 'none';
+  });
+
+  document.getElementById('screen-' + name).classList.add('active');
+  var navBtn = document.getElementById('nav-' + name);
+  if (navBtn) {
+    navBtn.classList.add('active');
+    var bar = navBtn.querySelector('.nav-bar');
+    if (bar) bar.style.display = 'block';
+  }
+
+  window.scrollTo(0, 0);
+  if (name === 'historial') renderHistorial();
+}
+
+function getRegs() {
+  return JSON.parse(localStorage.getItem('permisosAlturas') || '[]');
+}
+
+function renderHistorial() {
+  var list = document.getElementById('historial-lista');
+  var regs = getRegs();
+  var btnBorrar = document.getElementById('btn-borrar-todo');
+
+  if (regs.length === 0) {
+    btnBorrar.style.display = 'none';
+    list.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">📁</div>
+        <p>No se registran permisos guardados</p>
+      </div>`;
+    return;
+  }
+
+  btnBorrar.style.display = 'block';
+  var html = '';
+  regs.forEach(function(r, index) {
+    html += '<div class="record-item" onclick="verDetalle(\'' + r.id + '\')">';
+    html += '  <div class="record-dot"></div>';
+    html += '  <div class="record-info">';
+    html += '    <div class="record-name">Sitio: ' + r.sitio + ' | Técnicos: ' + r.tecnicos.length + '</div>';
+    html += '    <div class="record-date">' + r.fecha + ' ' + r.horaInicio + '</div>';
+    html += '  </div>';
+    html += '  <span style="font-size:12px; color:var(--text2); background:var(--gray3); padding:6px 10px; border-radius:6px; font-weight:bold;" onclick="verDetalle(\'' + r.id + '\'); event.stopPropagation();">👁️ Ver / PDF</span>';
+    html += '</div>';
+  });
+  list.innerHTML = html;
+}
+
+function verDetalle(id) {
+  var r = getRegs().find(function(reg) { return reg.id === id; });
+  if (!r) return;
+
+  var textosPreguntas = [
+    "1. ¿Algún trabajador ha sufrido traumas / golpes en cara o cráneo con pérdida de conocimiento o intenso aturdimiento en las últimas 72 horas?",
+    "2. ¿Algún trabajador ha presentado enfermedad del oído que ameritó tratamiento médico durante las últimas 24 horas?",
+    "3. ¿Algún trabajador ha ingerido medicamentos, bebidas alcohólicas o sustancias alucinógenas en las últimas 24 horas?",
+    "4. ¿Se encuentran los trabajadores en condiciones físicas y anímicas aptas para realizar la labor?",
+    "5. Los trabajadores cuentan con el CERTIFICADO DE CAPACITACIÓN y/o competencia laboral para el trabajo seguro en alturas.",
+    "6. Los trabajadores cuentan con AFILIACIONES vigentes en seguridad social integral.",
+    "7. Los trabajadores conocen los PASOS para realizar la tarea, sus riesgos y medidas preventivas.",
+    "8. Existe supervisión directa para la realización de los trabajos. (COORDINADOR DE TRABAJO EN ALTURAS)",
+    "9. Se observa que los SISTEMAS DE ACCESO como andamios, escaleras, plataformas elevadoras, estructuras, azoteas, están en buen estado.",
+    "10. Se cuenta con PUNTOS DE ANCLAJE (estructura, ganchos, anclajes, vigas, etc).",
+    "11. En la estructura donde se ejecuta la instalación se cuenta con los 3 PUNTOS DE APOYO para un posicionamiento seguro.",
+    "12. Se verificó que los EPCC se encuentran libres de quemaduras, manchas de químicos, uniones rotas, desgaste abrasivo, costuras de hilo rotas, corrosión de argollas, rasgaduras, absorbedor roto, cortes, guaya deshilachada, gancho sin cierre seguro o alguna otra señal de daño importante que impida su uso.",
+    "13. Se cuenta con LÍNEAS DE VIDA o guayas en buen estado y ancladas a sistemas fijos, por encima de la cabeza del trabajador.",
+    "14. Se DELIMITÓ Y SEÑALIZÓ la zona de trabajo para establecer un perímetro de seguridad teniendo en cuenta el espacio de posible caída de objetos.",
+    "15. Existen BARANDAS DE PROTECCIÓN en zonas donde hay exposición al vacío y están en buen estado.",
+    "16. Los EQUIPOS Y HERRAMIETAS fueron revisados y se encuentran en buen estado.",
+    "17. Se mantiene DISTANCIA MÍNIMA de separación de 3 m a LÍNEAS ELÉCTRICAS ENERGIZADAS.",
+    "18. Los trabajadores conocen el PROTOCOLO a seguir en caso de accidentes o EMERGENCIAS.",
+    "19. Se cuenta con ELEMENTOS DE PROTECCIÓN PERSONAL de acuerdo a los riesgos y están en buen estado."
+  ];
+
+  var html = '';
+  var checksHtml = '';
+  for (var k = 1; k <= 19; k++) {
+      checksHtml += '<div class="info-row"><span>' + textosPreguntas[k-1] + '</span><strong>Respuesta: ' + (r.comprobacionesPreviasInicioTrabajo['pregunta_'+k] || 'N/A') + '</strong></div>';
+  }
+
+  var techsHtml = '';
+  r.tecnicos.forEach(function(t, i) {
+      techsHtml += '<div style="background:var(--gray2); padding:10px; border-radius:6px; margin-bottom:6px; font-size:12px;">' +
+      '<p><strong>Técnico #' + (i+1) + '</strong></p>' +
+      '<p>Nombre: ' + t.nombre + '</p>' +
+      '<p>Cédula: ' + t.cedula + '</p>' +
+      '<p>Teléfono: ' + t.telefono + '</p>' +
+      '<p>Firma:<br><img src="' + t.firmaImagen + '" style="max-height:50px;"/></p>' +
+      '</div>';
+  });
+
+  html += '<div class="detail-hdr"><h2>PERMISO PARA TRABAJO EN ALTURAS (FR-SST-027)</h2><p>Sitio: ' + r.sitio + ' | Fecha: ' + r.fecha + '</p></div>';
+  
+  html += '<div class="card"><div class="card-title"><div class="icon">📝</div>Datos Principales</div>' +
+          '<div class="info-row"><span>Sitio:</span><strong>' + r.sitio + '</strong></div>' +
+          '<div class="info-row"><span>Descripción:</span><strong>' + r.descripcion + '</strong></div>' +
+          '<div class="info-row"><span>Horario:</span><strong>' + r.horaInicio + ' - ' + r.horaFin + '</strong></div>' +
+          '<div class="info-row"><span>Altura Máxima:</span><strong>' + r.alturaMax + ' mts</strong></div>' +
+          '</div>';
+
+  html += '<div class="card"><div class="card-title"><div class="icon">👷</div>Personal Autorizado</div>' + techsHtml + '</div>';
+  html += '<div class="card"><div class="card-title"><div class="icon">📋</div>Comprobaciones Previas</div>' + checksHtml + '</div>';
+  
+  if (r.verificacionAlturaBaja) {
+      html += '<div class="card"><div class="card-title"><div class="icon">⚠️</div>Análisis Distancia Caída ≤6.2m</div>' +
+              '<div class="info-row"><span>Q1 (¿Se verificó la distancia de desaceleración?):</span><strong>' + r.verificacionAlturaBaja.q1 + '</strong></div>' +
+              '<div class="info-row"><span>Q2 (¿Longitud total menor a distancia disponible?):</span><strong>' + r.verificacionAlturaBaja.q2 + '</strong></div>' +
+              '<div class="info-row"><span>Q3 (¿Espacio libre de caída verificado?):</span><strong>' + r.verificacionAlturaBaja.q3 + '</strong></div>' +
+              '<div class="info-row"><span>Observaciones:</span><strong>' + r.verificacionAlturaBaja.observaciones + '</strong></div>' +
+              '</div>';
+  }
+
+  html += '<div class="card"><div class="card-title"><div class="icon">🔒</div>Cierre del Permiso</div>' +
+          '<div class="info-row"><span>La tarea se ejecutó conforme a las especificaciones:</span><strong>' + r.cierreDocumento.q1 + '</strong></div>' +
+          '<div class="info-row"><span>Se aplicaron las medidas de control para los riesgos:</span><strong>' + r.cierreDocumento.q2 + '</strong></div>' +
+          '<div class="info-row"><span>Se evitan impactos ambientales (orden y aseo):</span><strong>' + r.cierreDocumento.q3 + '</strong></div>' +
+          '<div class="info-row"><span>Ausencia de accidentes o emergencias:</span><strong>' + r.cierreDocumento.q4 + '</strong></div>' +
+          '<p style="font-size:12px; margin-top:6px;"><strong>Coord. Cierre:</strong> ' + r.cierreDocumento.coordinadorCierreNombre + '</p>' +
+          '<img src="' + r.cierreDocumento.coordinadorCierreFirma + '" style="max-height:40px; display:block;">' +
+          '<p style="font-size:12px; margin-top:6px;"><strong>Jefe Cuadrilla:</strong> ' + r.cierreDocumento.jefeCuadrillaNombre + '</p>' +
+          '<img src="' + r.cierreDocumento.jefeCuadrillaFirma + '" style="max-height:40px; display:block;">' +
+          '</div>';
+
+  document.getElementById('detalleContenido').innerHTML = html;
+  
+  var pantallaDetalle = document.getElementById('screen-detalle');
+  var viejoBtn = pantallaDetalle.querySelector('.btn-pdf-dinamico');
+  if(viejoBtn) viejoBtn.remove();
+
+  var btnPdf = document.createElement('button');
+  btnPdf.className = 'btn btn-primary btn-pdf-dinamico';
+  btnPdf.style = "background: var(--success); color: white; box-shadow: 0 3px 10px rgba(56,161,105,.3);";
+  btnPdf.innerHTML = '📥 Guardar / Descargar en PDF';
+  btnPdf.onclick = function() {
+    var tituloOriginal = document.title;
+    var sitioSanitizado = (r.sitio || 'Obra').trim().replace(/[/\\?%*:|"<> ]/g, '_');
+    document.title = "Permiso_Alturas_" + sitioSanitizado + "_" + r.fecha;
+    
+    window.print();
+    
+    setTimeout(function() { document.title = tituloOriginal; }, 1000);
+  };
+  
+  document.getElementById('btn-eliminar-reg').onclick = function() { eliminarReg(r.id); };
+  pantallaDetalle.insertBefore(btnPdf, document.getElementById('btn-eliminar-reg'));
+  showScreen('detalle');
+}
+
+function eliminarReg(id) {
+  if (!confirm('¿Seguro que desea eliminar este registro?')) return;
+  var regs = getRegs().filter(function(r) { return r.id !== id; });
+  localStorage.setItem('permisosAlturas', JSON.stringify(regs));
+  showScreen('historial');
+  showToast('🗑️ Registro eliminado de la memoria');
+}
+
+function limpiarHistorial() {
+  if (!confirm('🚨 ¿Está seguro de vaciar el historial local permanentemente?')) return;
+  localStorage.removeItem('permisosAlturas');
+  renderHistorial();
+  showToast('🗑️ Base de datos local vaciada');
+}
 
 function agregarTecnico() {
     techCounter++;
@@ -487,21 +556,20 @@ function agregarTecnico() {
     card.id = `techCard_${techCounter}`;
     
     card.innerHTML = `
-        ${techCounter > 1 ? `<button type="button" class="btn-remove" onclick="removerTecnico(${techCounter})" title="Eliminar técnico">&times;</button>` : ''}
+        ${techCounter > 1 ? `<button type="button" class="btn-remove" onclick="removerTecnico(${techCounter})">&times;</button>` : ''}
         <h4>Técnico #${techCounter}</h4>
-        <label>Nombres y Apellidos:</label>
+        <label class="field-label">Nombres y Apellidos:</label>
         <input type="text" class="tech-nombre" placeholder="Nombre completo" required>
         
-        <label>Cédula (C.C.):</label>
+        <label class="field-label">Cédula (C.C.):</label>
         <input type="text" class="tech-cedula" placeholder="Número de documento" required>
 
-        <label>Número de Teléfono:</label>
+        <label class="field-label">Número de Teléfono:</label>
         <input type="text" class="tech-telefono" placeholder="Móvil de contacto" required>
 
-        <label>Firma (Firme en el recuadro):</label>
+        <label class="field-label">Firma (Firme en el recuadro):</label>
         <canvas id="signatureCanvas_${techCounter}"></canvas>
-        <br>
-        <button type="button" class="btn-secondary" onclick="limpiarFirma('signatureCanvas_${techCounter}')">Limpiar Firma</button>
+        <button type="button" class="btn btn-outline" style="padding:6px; font-size:12px; margin-top:6px;" onclick="limpiarFirma('signatureCanvas_${techCounter}')">Limpiar Firma</button>
     `;
     
     container.appendChild(card);
@@ -509,55 +577,42 @@ function agregarTecnico() {
 }
 
 function removerTecnico(id) {
-    const card = document.getElementById(`techCard_${id}`);
-    if (card) {
-        card.remove();
-    }
+    var card = document.getElementById(`techCard_${id}`);
+    if (card) card.remove();
 }
 
 function iniciarCanvas(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext('2d');
-    let dibujando = false;
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
+    var dibujando = false;
 
-    canvas.width = canvas.offsetWidth;
+    canvas.width = canvas.parentElement.clientWidth - 32;
     canvas.height = 100;
 
-    ctx.lineWidth = 2;
+    ctx.strokeStyle = '#0d2b4e';
+    ctx.lineWidth = 2.5;
     ctx.lineCap = 'round';
-    ctx.strokeStyle = '#000';
 
     function obtenerPosicion(e) {
-        const rect = canvas.getBoundingClientRect();
-        let clientX, clientY;
-        
-        if (e.touches && e.touches.length > 0) {
-            clientX = e.touches[0].clientX;
-            clientY = e.touches[0].clientY;
-        } else {
-            clientX = e.clientX;
-            clientY = e.clientY;
-        }
-
-        return {
-            x: clientX - rect.left,
-            y: clientY - rect.top
-        };
+        var r = canvas.getBoundingClientRect();
+        var cx = e.touches ? e.touches[0].clientX : e.clientX;
+        var cy = e.touches ? e.touches[0].clientY : e.clientY;
+        return { x: cx - r.left, y: cy - r.top };
     }
 
     function empezarDibujo(e) {
         e.preventDefault();
         dibujando = true;
         ctx.beginPath();
-        const pos = obtenerPosicion(e);
-        ctx.moveTo(pos.x, pos.y);
+        var p = obtenerPosicion(e);
+        ctx.moveTo(p.x, p.y);
     }
 
     function dibujar(e) {
         if (!dibujando) return;
         e.preventDefault();
-        const pos = obtenerPosicion(e);
-        ctx.lineTo(pos.x, pos.y);
+        var p = obtenerPosicion(e);
+        ctx.lineTo(p.x, p.y);
         ctx.stroke();
     }
 
@@ -578,17 +633,17 @@ function iniciarCanvas(canvasId) {
 }
 
 function limpiarFirma(canvasId) {
-    const canvas = document.getElementById(canvasId);
-    const ctx = canvas.getContext('2d');
+    var canvas = document.getElementById(canvasId);
+    var ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    agregarTecnico();
-    iniciarCanvas('signatureCanvas_coord');
-    iniciarCanvas('signatureCanvas_cierre_coord');
-    iniciarCanvas('signatureCanvas_cierre_jefe');
-});
+function showToast(msg) {
+  var t = document.getElementById('toast');
+  t.innerText = msg;
+  t.className = 'toast show';
+  setTimeout(function() { t.className = 'toast'; }, 2500);
+}
 
 document.getElementById('formAlturas').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -655,6 +710,7 @@ document.getElementById('formAlturas').addEventListener('submit', function(e) {
     };
 
     const datosPermiso = {
+        id: Date.now().toString(),
         fecha: document.getElementById('fecha').value,
         sitio: document.getElementById('sitio').value,
         descripcion: document.getElementById('descripcion').value,
@@ -670,28 +726,31 @@ document.getElementById('formAlturas').addEventListener('submit', function(e) {
         cierreDocumento: datosCierre
     };
 
-    console.log("Datos consolidados del permiso:", datosPermiso);
-    
-    // AQUÍ TIENES EL CÓDIGO COMENTADO PARA CONECTAR A N8N
-    /*
-    fetch('TU_PRODUCTION_URL_AQUI', {
+    // Guardado local en memoria
+    let historialLocal = getRegs();
+    historialLocal.unshift(datosPermiso);
+    localStorage.setItem('permisosAlturas', JSON.stringify(historialLocal));
+
+    // ─── INTEGRACIÓN CON N8N ───
+    const URL_N8N = 'TU_WEBHOOK_URL_AQUI'; // Cambia por tu webhook real
+    fetch(URL_N8N, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(datosPermiso)
     })
-    .then(response => response.json())
-    .then(data => {
-        alert('Permiso de alturas enviado exitosamente.');
-        document.getElementById('formAlturas').reset();
-        document.getElementById('techContainer').innerHTML = '';
-        techCounter = 0;
-        agregarTecnico();
-        // Limpiar firmas si es necesario...
+    .then(function(response) {
+        console.log('Enviado a n8n', response);
     })
-    .catch(error => console.error('Error:', error));
-    */
+    .catch(function(err) {
+        console.error('Error al enviar a n8n:', err);
+    });
 
-    alert('Formato de prueba listo y compilado correctamente.');
+    showToast('✅ Permiso guardado localmente y enviado a n8n.');
+    this.reset();
+    document.getElementById('techContainer').innerHTML = '';
+    techCounter = 0;
+    agregarTecnico();
+    showScreen('historial');
 });
 </script>
 
